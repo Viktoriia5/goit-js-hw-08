@@ -1,3 +1,5 @@
+// import * as basicLightbox from 'basiclightbox';
+
 const images = [
   {
     preview:
@@ -67,9 +69,31 @@ const images = [
 let gallery_list = document.querySelector('.gallery');
 gallery_list.addEventListener('click', handleImageScale);
 
-function handleImageScale(event) {}
-console.log(event.target);
+function handleImageScale(event) {
+  event.preventDefault();
+  console.log(event.target.getAttribute('data-source'));
+  let largeImgSrc = event.target.getAttribute('data-source');
+  const instance = basicLightbox.create(`
+    <img src="${largeImgSrc}" width="800" height="600">
+`);
+
+  instance.show();
+}
+
 for (let image of images) {
+  const { preview, original, description } = image;
   console.log(image);
-  i;
+  let imageItem = `
+    <li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>
+  `;
+  gallery_list.insertAdjacentHTML('beforeend', imageItem);
 }
