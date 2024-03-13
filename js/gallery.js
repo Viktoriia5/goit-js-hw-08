@@ -73,6 +73,7 @@ function handleImageScale(event) {
   event.preventDefault();
   console.log(event.target.getAttribute('data-source'));
   let largeImgSrc = event.target.getAttribute('data-source');
+  if (event.currentTarget === event.target) return;
   const instance = basicLightbox.create(`
     <img src="${largeImgSrc}" width="800" height="600">
 `);
